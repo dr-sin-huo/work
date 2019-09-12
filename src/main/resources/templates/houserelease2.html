@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>房屋发布——房源描述</title>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            房源描述
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form method="post" action="#">
+            <table border="0">
+                <tr><th>房源标题：</th><td><textarea name="H_name" rows="5" cols="60" placeholder="精炼的介绍特点和优势，让房客在第一时间内对你的房源感兴趣"></textarea></td></tr>
+                <tr><th>个性描述（选填）：</th><td><textarea name="H_pedescription" rows="7" cols="60" placeholder="向房客介绍一下自己的兴趣爱好，告诉房客能体验到的不一样的特色或服务有哪些"></textarea></td></tr>
+                <tr><th>内部情况：</th><td><textarea name="H_insituation" rows="7" cols="60" placeholder="房屋内装修和装饰的风格，以及主要配套设施的介绍"></textarea></td></tr>
+                <tr><th>交通情况（选填）：</th><td><textarea name="H_traffic" rows="7" cols="60" placeholder="房源所处的位置，以及周边交通情况的描述"></textarea></td></tr>
+                <tr><th>周边情况（选填）：</th><td><textarea name="H_beside" rows="7" cols="60" placeholder="房源所在楼宇和小区的基本情况，以及周边商超、景点、银行、医院等配套设施等情况"></textarea></td></tr>
+                <tr><td><input type="submit" value="保存并继续"></td></tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

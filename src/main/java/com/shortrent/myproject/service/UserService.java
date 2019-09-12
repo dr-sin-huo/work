@@ -14,5 +14,7 @@ public interface UserService {
 
     void updateUser(User user);
 
+    List<User> getUserByphone(User user);
+
     List<User> getAll();
 }

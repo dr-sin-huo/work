@@ -2,6 +2,7 @@ package com.shortrent.myproject.service;
 
 import com.shortrent.myproject.generator.dao.UserDao;
 import com.shortrent.myproject.generator.model.User;
+import com.shortrent.myproject.generator.model.UserExample;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(Integer usrId) {
-        return userDao.selectByPrimaryKey(usrId);
+        return null;
+    }
+
+    @Override
+    public List<User> getUserByphone(User user) {
+        UserExample userExample=new UserExample();
+
+        UserExample.Criteria criteria=userExample.createCriteria();
+        criteria.andUserPhoneEqualTo(user.getUserPhone());
+
+        return userDao.selectByExample(userExample);
     }
 
     @Override
