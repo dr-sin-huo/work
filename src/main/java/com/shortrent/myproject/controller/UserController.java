@@ -36,14 +36,16 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String login(User user, Model model){
+    public String login(User user, Model model,HttpServletRequest request){
         List<User> users = userService.getUserByphone(user);
         if(!users.isEmpty()) {
             if (users.get(0).getUsrPassword().equals(user.getUsrPassword())) {
 
                 model.addAttribute("login", user.getUserPhone());
+                request.getSession().setAttribute("login", user.getUserPhone());
                 return "indextemp";
             } else {
+                request.getSession().setAttribute("login",0);
                 model.addAttribute("login",0);
                 return "waring";
             }
@@ -56,8 +58,9 @@ public class UserController {
 
     }
     @GetMapping("/exit")
-    public String exit(Model model){
+    public String exit(Model model,HttpServletRequest request){
         model.addAttribute("login",0);
+        request.getSession().setAttribute("login",0);
         return "indextemp";
     }
 

@@ -1,3 +1,5 @@
+
+
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -16,6 +18,19 @@ spring:
     mode: HTML5 # 模版模式
     prefix: classpath:/templates/ # 模版存放路径
     suffix: .html # 模版后缀
+  mail:
+    host: smtp.qq.com #发送邮件服务器
+    username: 971839627@qq.com #QQ邮箱
+    password: dyguzndvbsjwbdaa #客户端授权码
+    protocol: smtp #发送邮件协议
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.port: 465 #端口号465或587
+    properties.mail.display.sendmail: Javen #可以任意
+    properties.mail.display.sendname: Spring Boot Guide Email #可以任意
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
 mybatis:
   mapper-locations: classpath:generator/*.xml
 logging:

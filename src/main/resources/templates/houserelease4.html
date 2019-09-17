@@ -3,8 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <title>房源发布——上传真实照片</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script><!--页面加载完成后获得用户名-->
+    window.onload=function () {
+        $("#username").html("<span class=\"glyphicon glyphicon-user\"></span>"+[[${session.login}]])
+    }
+    </script>
+
+    <script>
+        function changepic() {
+            $("#prompt3").css("display", "none");
+            var reads = new FileReader();
+            f = document.getElementById('file').files[0];
+            reads.readAsDataURL(f);
+            reads.onload = function(e) {
+                document.getElementById('img3').src = this.result;
+                $("#img3").css("display", "block");
+            };
+        }
+
+        function housearea() {
+            var housearea=$("#housearea").val();
+            $("#displayhouse").html($("#housearea").val());
+            console.log(housearea)
+        }
+    </script>
+
+    <style type="text/css">.button {
+        background-color: white;
+        color: black;
+        border: 2px solid darkorange;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color:darkorange;
+        color: white;
+    }</style>
+
+    <style>
+        #imgPreview {
+            width: 40%;
+            height: 180px;
+            margin: 10px auto 0px auto;
+            border: 1px solid black;
+            text-align: center;
+        }
+        #prompt3 {
+            width: 100%;
+            height: 180px;
+            text-align: center;
+            position: relative;
+        }
+        #imgSpan {
+            position: absolute;
+            top: 60px;
+            left: 40px;
+        }
+        .filepath {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        #img3 {
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+    </style>
+
+
 </head>
+<style type="text/css">
+    .container{
+        padding-top: 60px;
+    }
+</style>
 <body>
+<style type="text/css">.navbar{background: darkorange;}</style>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/purerent/index" style="color: white"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white" id="username">此处应获取用户名<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">房东中心</a>
+                    </li>
+                    <li>
+                        <a href="#">房客中心</a>
+                    </li>
+                    <li>
+                        <a href="#">退出登录</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <button type="submit" class="btn btn-default" formaction="#" style="color:darkorange;" >免费发布房间</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<form method="post" action="/purerent/housesave" enctype="multipart/form-data">
+<div class="container">
+    <div class="row">
+    <div id="imgPreview">
+        <div id="prompt3">
+            <span id="imgSpan">
+                点击上传
+                <br/>
+                <i class="aui-iconfont aui-icon-plus"></i>
+            </span>
+            <input type="file" id="file" name="img" class="filepath" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG">
+            <!--当vaule值改变时执行changepic函数，规定上传的文件只能是图片-->
+        </div>
+        <img src="#" id="img3" />
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+            <button type="submit" class="button" style="width:max-content"\>保存并继续</button>
+        </div>
+    </div>
+</div>
+</form>
+
 
 </body>
 </html>

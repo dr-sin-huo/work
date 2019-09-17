@@ -3,20 +3,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
 <script>
-        var login=document.getElementById("se")
-        if (login.textContent!=null){
-            document.write("<li><a href='#' style='color:white;' data-target='#myModal' data-toggle='modal'><span class='glyphicon glyphicon-user'  id='firsta1'></span> "+login.textContent+"</a></li>")
-            document.write("<li><a href='#' style='color:white;' data-target='#myModal1' data-toggle='modal'><span class='glyphicon glyphicon-user'  id='firsta1'></span> 登录</a></li>")
-
-        }
-        else {
-
-            document.write("<li><a href='#' style='color:white;' data-target='#myModal' data-toggle='modal'><span class='glyphicon glyphicon-user'  id='firsta1'></span> 注册</a></li>")
-            document.write("<li><a href='#' style='color:white;' data-target='#myModal1' data-toggle='modal'><span class='glyphicon glyphicon-user'  id='firsta1'></span> 登录</a></li>")
-
-        }
-</script>
-<script>
     function onclick1() {
         var xmlhttp;
         if (window.XMLHttpRequest){
@@ -35,9 +21,31 @@
         xmlhttp.open("GET","/111",true);
         xmlhttp.send();
     }
+
+</script>
+
+<script th:inline="javascript">
+    function msg1() {
+        var xmlhttp;
+        if (window.XMLHttpRequest){
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                document.getElementById("remsg").value=xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET","/purerent/msg",true);
+        xmlhttp.send();
+
+    }
 </script>
 <head>
-
     <meta charset="utf-8">
 
     <title>首页</title>
@@ -47,6 +55,7 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <style type="text/css">
         #myCarousel  .carousel-inner > .item > img {
             display: block;
@@ -54,13 +63,15 @@
             height:750px;
         }
     </style>
+
 </head>
 
 <body>
+
 <div th:text="${login}" id="se" hidden></div>
+
 <style type="text/css">.navbar{background: darkorange;}</style>
 ​
-
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
     <div class="container-fluid">
@@ -74,17 +85,35 @@
         <ul class="nav navbar-nav navbar-right" id="firsta1">
 
             <script>
+
                 var login=document.getElementById("se");
+
+
                 if (login.textContent!=0){
-                    document.write("<li><a href='#' style='color:white;' ><span class='glyphicon glyphicon-user'></span> "+login.textContent+"</a></li>");
+
+                    document.write("<li class='dropdown'><a href='#' style='color:white;' class=\"dropdown-toggle\" data-toggle=\"dropdown\" ><span class='glyphicon glyphicon-user'></span>"+login.textContent+"</a>\t\t\t\t<ul class=\"dropdown-menu\">\n" +
+                        "\t\t\t\t\t<li><a href=\"/purerent/totenantpage\">房客中心</a></li>\n" +
+                        "\t\t\t\t\t<li><a href=\"/purerent/housere1\">发布房屋</a></li>\n" +
+                        "\t\t\t\t\t<li><a href=\"/purerent/tolandlordpage\">房东中心</a></li>\n" +
+                        "\t\t\t\t\t<li class=\"divider\"></li>\n" +
+                        "\t\t\t\t\t<li><a href=\"#\">分离的链接</a></li>\n" +
+                        "\t\t\t\t\t<li class=\"divider\"></li>\n" +
+                        "\t\t\t\t\t<li><a href=\"#\">另一个分离的链接</a></li>\n" +
+                        "\t\t\t\t</ul></li>");
+
                     document.write("<li><a href='/purerent/exit' style='color:white;' ><span class='glyphicon glyphicon-log-in' ></span> 退出登录</a></li>");
 
                 }
+
                 else {
+
                     document.write("<li><a href='#' style='color:white;' data-target='#myModal' data-toggle='modal'><span class='glyphicon glyphicon-user'></span> 注册</a></li>");
+
                     document.write("<li><a href='#' style='color:white;' data-target='#myModal1' data-toggle='modal'><span class='glyphicon glyphicon-log-in'></span> 登录</a></li>");
                 }
+
             </script>
+
         </ul>
 
     </div>
@@ -120,7 +149,7 @@
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" align="center">
-        <form class="navbar-form navbar-center" role="search">
+        <form class="navbar-form navbar-center" role="search" method="get" action="/purerent/housesearchcontroller">
             <div>
                 <p class="navbar-text" style="color:white;" >请输入：</p>
             </div>
@@ -138,7 +167,7 @@
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <img src="/4.jpg"
-                 alt="通用的占位符缩略图">
+                 alt="通用的占位符缩略图" height="230">
             <div class="caption">
                 <h5>简约大方风格</h5>
                 <p>￥290/晚</p>
@@ -154,7 +183,7 @@
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <img src="/7.jpg"
-                 alt="通用的占位符缩略图">
+                 alt="通用的占位符缩略图" height="230">
             <div class="caption">
                 <h5>温馨舒适风格</h5>
                 <p>￥280/晚</p>
@@ -169,7 +198,7 @@
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <img src="/8.jpg"
-                 alt="通用的占位符缩略图">
+                 alt="通用的占位符缩略图" height="230">
             <div class="caption">
                 <h5>商务办公风格</h5>
                 <p>￥300/晚</p>
@@ -184,7 +213,7 @@
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <img src="/47.jpg"
-                 alt="通用的占位符缩略图">
+                 alt="通用的占位符缩略图" height="230">
             <div class="caption">
                 <h5>粉粉少女风格</h5>
                 <p>￥288/晚</p>
@@ -200,8 +229,7 @@
 <div class="row">
     <div class="col-sm-4 col-md">
         <div class="thumbnail">
-            <img src="/53.jpg"
-                 alt="通用的占位符缩略图">
+            <img src="/53.jpg" alt="通用的占位符缩略图" height="230">
             <div class="caption">
                 <h5>干净整洁风格</h5>
                 <p>￥246/晚</p>
@@ -216,7 +244,7 @@
     <div class="col-sm-4 col-md">
         <div class="thumbnail">
             <img src="/50.jpg"
-                 alt="通用的占位符缩略图">
+                 alt="通用的占位符缩略图" height="230">
             <div class="caption">
                 <h5>可爱活泼风格</h5>
                 <p>￥220/晚</p>
@@ -231,7 +259,7 @@
     <div class="col-sm-4 col-md">
         <div class="thumbnail">
             <img src="/27.jpg"
-                 alt="通用的占位符缩略图">
+                 alt="通用的占位符缩略图" height="230">
             <div class="caption">
                 <h5>奢靡豪华风格</h5>
                 <p>￥498/晚</p>
@@ -272,8 +300,9 @@
             <div class="modal-body">
 
                     <div class="text-input-dialog">
-                    <input name="userPhone" class="text-input" type="text">
-                    <input name="usrPassword" type="text" class="text-input">
+                    <input name="userPhone" class="text-input" type="text"/>
+                        <button type="button"  id="msg" onclick="msg1()">获取验证码</button>
+                    <input name="usrPassword" type="text" class="text-input" id="remsg">
                     </div>
 
             </div>

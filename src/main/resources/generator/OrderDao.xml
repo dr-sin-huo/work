@@ -83,7 +83,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -102,21 +102,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from `order`
     where o_id = #{oId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from `order`
     where o_id = #{oId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.shortrent.myproject.generator.model.OrderExample">
-    delete from order
+    delete from `order`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" keyColumn="o_id" keyProperty="oId" parameterType="com.shortrent.myproject.generator.model.Order" useGeneratedKeys="true">
-    insert into order (o_applicant, o_acceptor, o_houseid, 
+    insert into `order` (o_applicant, o_acceptor, o_houseid,
       o_amount, o_status, o_starttime, 
       o_endtime, o_capitalnumber, o_paymentnumber, 
       o_reason, o_message)
@@ -126,7 +126,7 @@
       #{oReason,jdbcType=VARCHAR}, #{oMessage,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="o_id" keyProperty="oId" parameterType="com.shortrent.myproject.generator.model.Order" useGeneratedKeys="true">
-    insert into order
+    insert into `order`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oApplicant != null">
         o_applicant,
@@ -205,7 +205,7 @@
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update order
+    update `order`
     <set>
       <if test="record.oId != null">
         o_id = #{record.oId,jdbcType=INTEGER},
@@ -249,7 +249,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update order
+    update `order`
     set o_id = #{record.oId,jdbcType=INTEGER},
       o_applicant = #{record.oApplicant,jdbcType=INTEGER},
       o_acceptor = #{record.oAcceptor,jdbcType=INTEGER},
@@ -267,7 +267,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.shortrent.myproject.generator.model.Order">
-    update order
+    update `order`
     <set>
       <if test="oApplicant != null">
         o_applicant = #{oApplicant,jdbcType=INTEGER},
@@ -306,7 +306,7 @@
     where o_id = #{oId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.shortrent.myproject.generator.model.Order">
-    update order
+    update `order`
     set o_applicant = #{oApplicant,jdbcType=INTEGER},
       o_acceptor = #{oAcceptor,jdbcType=INTEGER},
       o_houseid = #{oHouseid,jdbcType=INTEGER},

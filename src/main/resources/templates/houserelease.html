@@ -1,20 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>房屋发布——房源信息</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
+    <script><!--页面加载完成后获得用户名-->
+        window.onload=function () {
+            $("#username").html("<span class=\"glyphicon glyphicon-user\"></span>"+[[${session.login}]])
+        }
+    </script>
+    <script><!--将地址暂存于session-->
+        function save_house_area() {
+            var area=$("#H_delocation").val();
+            var xmlhttp;
+            if (window.XMLHttpRequest){
+                xmlhttp=new XMLHttpRequest();
+            }
+            else {
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    var area=xmlhttp.responseText;
+                    if (area!="")
+                    $("#displayarea").html(area);
+                    else {
+                        $("#displayarea").html("<span class=\"glyphicon glyphicon-plus\"></span>添加地址");
+                    }
+                }
+            }
 
+            xmlhttp.open("GET","/purerent/hDelocation?H_delocation="+area,true);
+            xmlhttp.send();
+
+        }
+    </script>
+    <style type="text/css">.button {
+        background-color: white;
+        color: black;
+        border: 2px solid darkorange;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color:darkorange;
+        color: white;
+    }</style>
+</head>
+<style type="text/css">
+    .container{
+        padding-top: 60px;
+    }
+</style>
+<body>
+<style type="text/css">.navbar{background: darkorange;}</style>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/purerent/index" style="color: white"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white" id="username"><span class="glyphicon glyphicon-user"></span>此处应获取用户名<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">房东中心</a>
+                    </li>
+                    <li>
+                        <a href="#">房客中心</a>
+                    </li>
+                    <li>
+                        <a href="#">退出登录</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <button type="submit" class="btn btn-default" formaction="#" style="color:darkorange;" >免费发布房间</button>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+<div align="center">
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-2 column">
+            </div>
+            <div class="col-md-6 column">
 <div class="panel panel-default">
     <div class="panel-body">
         <h4>房源地址</h4><hr/>
-        房源位于：<a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span>添加新地址</a>
+        房源位于：<a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#myModal" id="displayarea"><span class="glyphicon glyphicon-plus"></span>添加地址</a>
     </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -24,86 +114,85 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    添加新地址
+                    添加地址
                 </h4>
             </div>
+            <form><!--地址表单-->
             <div class="modal-body">
-                <form method="post" action="#">
-                    <table border="0">
-                        <tr><th>房源位于：</th><td><textarea name="H_delocation" rows="6" cols="60" placeholder="请按照：国家->省份->城市->县区->街道->详细地址->门牌号的顺序填写"></textarea></td></tr>
-                        <tr><input type="submit" value="添加"/></tr>
-                    </table>
-                </form>
+                   <table border="0">
+                       <tr><th>房源位于：</th><td><textarea id="H_delocation" name="H_delocation" rows="6" cols="60" placeholder="请按照：国家->省份->城市->县区->街道->详细地址->门牌号的顺序填写"></textarea></td></tr>
+                   </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     关闭
                 </button>
-                <button type="button" class="btn btn-primary" formaction="#">
+                <button type="button" class="btn btn-primary" onclick="save_house_area()" data-dismiss="modal">
                     提交更改
                 </button>
             </div>
+            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script>
     $(function () { $('#myModal').modal('hide')});
 </script>
-<script>
-    $(function () { $('#myModal').on('hide.bs.modal', function () {
-        alert('确定取消添加新地址吗？');})
-    });
-</script>
-
 <div class="panel panel-default">
     <div class="panel-body">
         <h4>房源基本情况</h4><hr/>
-        <form method="post" action="#">
-            <table border="0">
-                <tr><th>房屋类型：</th><td><select size="1" name="H_type">
+        <form method="get" action="/purerent/housere2">
+            <table border="0" >
+                <tr><th height="40px">房屋类型：</th><td height="40px"><select size="1" name="H_type">
                     <option value="民宅">民宅</option>
                     <option value="普通公寓">普通公寓</option>
                     <option value="酒店式公寓">酒店式公寓</option>
                     <option value="精品客栈">精品客栈</option></select>
                 </td></tr>
                 <tr>
-                    <th>出租类型：</th><td><input type="radio" name="H_retype" value="整套出租" checked>整套出租<input type="radio" name="H_retype" value="独立单间">独立单间<input type="radio" name="H_retype" value="合住房间">合住房间</td>
+                    <th height="40px">出租类型：</th><td height="40px"><input type="radio" name="H_retype" value="整套出租" checked>整套出租<input type="radio" name="H_retype" value="独立单间">独立单间<input type="radio" name="H_retype" value="合住房间">合住房间</td>
                 </tr>
-                <tr><th>房屋户型：</th><td><input type="text" name="H_hutype" placeholder="几室几厅几卫几阳台">
+                <tr><th height="40px">房屋户型：</th><td height="40px"><input type="text" name="H_hutype" placeholder="几室几厅几卫几阳台">
                 </td>
-                <tr><th>出租面积：</th><td><input type="text" name="H_area">㎡</td></tr>
+                <tr><th height="40px">出租面积：</th><td height="40px"><input type="text" name="H_area">㎡</td></tr>
                 <tr>
-                    <th>卫生间类型：</th><td>
+                    <th height="40px">卫生间类型：</th><td height="40px">
                     <input type="radio" name="H_batype" value="独立卫生间" checked>独立卫生间<input type="radio" name="H_batype" value="公共卫生间">公共卫生间
                 </td>
                 </tr>
                 <tr>
-                    <th>床铺信息：</th><td><input type="text" name="H_bedinfo" placeholder="几张几米长几米宽的同规格床铺"></td>
+                    <th height="40px">床铺信息：</th><td height="40px"><input type="text" name="H_bedinfo" placeholder="几张几米长几米宽的同规格床铺"></td>
                 </tr>
                 <tr>
-                    <th>宜居人数：</th><td><select size="1">
+                    <th height="40px">宜居人数：</th><td height="40px"><select size="1" name="H_Sunum">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
+                    <option value="5">及以上</option>
                 </select>人</td>
                 </tr>
                 <tr>
-                    <th>与房东共居在一套房屋内：</th><td><input type="radio" name="H_cohabitation" value="是" checked>是<input type="radio" name="H_cohabitation" value="否">否</td>
+                    <th height="40px">与房东共居在一套房屋内：</th><td height="40px"><input type="radio" name="H_cohabitation" value="是" checked>是<input type="radio" name="H_cohabitation" value="否">否</td>
                 </tr>
                 <tr>
-                    <th>同类房间数：</th><td><select size="1">
+                    <th height="40px">同类房间数：</th><td height="40px"><select size="1" name="H_Sihouse">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select> </td>
                 </tr>
-                <tr><td><input type="submit" value="保存并继续"></td></tr>
+                <tr><td height="40px"><button type="submit" class="button" style="width: max-content">保存并继续</button></td></tr>
             </table>
         </form>
     </div>
 </div>
-
+            </div> </div>
+            <div class="col-md-4 column">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

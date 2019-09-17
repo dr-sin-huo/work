@@ -17,6 +17,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(Order order) {
+        log.info("nihao");
+        log.info(order.getoStatus());
         orderDao.insert(order);
     }
 

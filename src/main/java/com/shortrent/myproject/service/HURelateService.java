@@ -14,5 +14,7 @@ public interface HURelateService {
 
     void updateHURelate(HURelate huRelate);
 
+
+
     List<HURelate> getAll();
 }

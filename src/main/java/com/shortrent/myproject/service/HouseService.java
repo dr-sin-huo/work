@@ -2,6 +2,7 @@ package com.shortrent.myproject.service;
 
 
 import com.shortrent.myproject.generator.model.House;
+import com.shortrent.myproject.generator.model.User;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface HouseService {
     void updateHouse(House house);
 
     List<House> getAll();
+
+    List<House> getHouseBylocation(House house);
 }

@@ -1,28 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>房屋发布——房源描述</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script><!--页面加载完成后获得用户名-->
+    window.onload=function () {
+        $("#username").html("<span class=\"glyphicon glyphicon-user\"></span>"+[[${session.login}]])
+    }
+    </script>
+    <style type="text/css">.button {
+        background-color: white;
+        color: black;
+        border: 2px solid darkorange;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color:darkorange;
+        color: white;
+    }</style>
 </head>
+<style type="text/css">
+    .container{
+        padding-top: 60px;
+    }
+</style>
 <body>
-<div class="panel panel-default">
+<style type="text/css">.navbar{background: darkorange;}</style>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/purerent/index" style="color: white"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white" id="username">此处应获取用户名<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">房东中心</a>
+                    </li>
+                    <li>
+                        <a href="#">房客中心</a>
+                    </li>
+                    <li>
+                        <a href="#">退出登录</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <button type="submit" class="btn btn-default" formaction="#" style="color:darkorange;" >免费发布房间</button>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+        </div>
+        <div class="col-md-6 column">
+<div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">
+        <h3 class="panel-title" style="font-weight: bold;">
             房源描述
-        </h3>
+        </h3><hr/>
     </div>
     <div class="panel-body">
-        <form method="post" action="#">
-            <table border="0">
-                <tr><th>房源标题：</th><td><textarea name="H_name" rows="5" cols="60" placeholder="精炼的介绍特点和优势，让房客在第一时间内对你的房源感兴趣"></textarea></td></tr>
-                <tr><th>个性描述（选填）：</th><td><textarea name="H_pedescription" rows="7" cols="60" placeholder="向房客介绍一下自己的兴趣爱好，告诉房客能体验到的不一样的特色或服务有哪些"></textarea></td></tr>
-                <tr><th>内部情况：</th><td><textarea name="H_insituation" rows="7" cols="60" placeholder="房屋内装修和装饰的风格，以及主要配套设施的介绍"></textarea></td></tr>
-                <tr><th>交通情况（选填）：</th><td><textarea name="H_traffic" rows="7" cols="60" placeholder="房源所处的位置，以及周边交通情况的描述"></textarea></td></tr>
-                <tr><th>周边情况（选填）：</th><td><textarea name="H_beside" rows="7" cols="60" placeholder="房源所在楼宇和小区的基本情况，以及周边商超、景点、银行、医院等配套设施等情况"></textarea></td></tr>
-                <tr><td><input type="submit" value="保存并继续"></td></tr>
-            </table>
-        </form>
+      <form method="get" action="/purerent/housere3">
+          <table border="0">
+              <tr><th>房源标题：</th><td><textarea name="H_name" rows="5" cols="80" placeholder="精炼的介绍特点和优势，让房客在第一时间内对你的房源感兴趣"></textarea></td></tr>
+              <tr><th>个性描述（选填）：</th><td><textarea name="H_pedescription" rows="7" cols="80" placeholder="向房客介绍一下自己的兴趣爱好，告诉房客能体验到的不一样的特色或服务有哪些"></textarea></td></tr>
+              <tr><th>内部情况：</th><td><textarea name="H_insituation" rows="7" cols="80" placeholder="房屋内装修和装饰的风格，以及主要配套设施的介绍"></textarea></td></tr>
+              <tr><th>交通情况（选填）：</th><td><textarea name="H_traffic" rows="7" cols="80" placeholder="房源所处的位置，以及周边交通情况的描述"></textarea></td></tr>
+              <tr><th>周边情况（选填）：</th><td><textarea name="H_beside" rows="7" cols="80" placeholder="房源所在楼宇和小区的基本情况，以及周边商超、景点、银行、医院等配套设施等情况"></textarea></td></tr>
+              <tr><td width="200px"><button type="submit" class="button" style="width:max-content" >保存并继续</button></td></tr>
+          </table>
+      </form>
+    </div>
+</div>
+        </div>
+        <div class="col-md-4 column">
+        </div>
     </div>
 </div>
 </body>

@@ -1,21 +1,86 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>房屋发布——配套设施及价格</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script><!--页面加载完成后获得用户名-->
+    window.onload=function () {
+        $("#username").html("<span class=\"glyphicon glyphicon-user\"></span>"+[[${session.login}]])
+    }
+    </script>
+    <style type="text/css">.button {
+        background-color: white;
+        color: black;
+        border: 2px solid darkorange;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color:darkorange;
+        color: white;
+    }</style>
 </head>
+<style type="text/css">
+    .container{
+        padding-top: 60px;
+    }
+</style>
 <body>
-<div class="panel panel-default">
+<style type="text/css">.navbar{background: darkorange;}</style>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/purerent/index" style="color: white"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white" id="username">此处应获取用户名<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">房东中心</a>
+                    </li>
+                    <li>
+                        <a href="#">房客中心</a>
+                    </li>
+                    <li>
+                        <a href="#">退出登录</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <button type="submit" class="btn btn-default" formaction="#" style="color:darkorange;" >免费发布房间</button>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+        </div>
+        <div class="col-md-6 column">
+<div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">
+        <h3 class="panel-title" style="font-weight: bold">
             配套设施
         </h3><hr/>
     </div>
     <div class="panel-body">
-        <form method="post" action="#">
+        <form method="get" action="/purerent/housere4">
             <table border="0">
-                <tr><th>卫浴:</th><td>
+                <tr><th>卫浴:</th><td height="40px">
                     <input type="checkbox" name="H_bath" value="牙具">牙具
                     <input type="checkbox" name="H_bath" value="香皂">香皂
                     <input type="checkbox" name="H_bath" value="毛巾">毛巾
@@ -25,14 +90,14 @@
                     <input type="checkbox" name="H_bath" value="浴缸">浴缸
                     <input type="checkbox" name="H_bath" value="拖鞋">拖鞋
                 </td></tr>
-                <tr><th>电器:</th><td>
+                <tr><th>电器:</th><td height="40px">
                     <input type="checkbox" name="H_electro" value="电视">电视
                     <input type="checkbox" name="H_electro" value="空调">空调
                     <input type="checkbox" name="H_electro" value="饮水设备">饮水设备
                     <input type="checkbox" name="H_electro" value="冰箱">冰箱<p/>
                     <input type="checkbox" name="H_electro" value="洗衣机">洗衣机
                 </td></tr>
-                <tr><th>设施:</th><td>
+                <tr><th>设施:</th><td height="40px">
                     <input type="checkbox" name="H_facilities" value="无线网络">无线网络
                     <input type="checkbox" name="H_facilities" value="有线网络">有线网络
                     <input type="checkbox" name="H_facilities" value="暖气">暖气
@@ -40,23 +105,28 @@
                     <input type="checkbox" name="H_facilities" value="门禁系统">门禁系统
                     <input type="checkbox" name="H_facilities" value="停车位">停车位
                 </td></tr>
-                <tr><th>特别设施:</th><td>
+                <tr><th>特别设施:</th><td height="40px">
                     <input type="checkbox" name="H_spefac" value="适宜儿童">适宜儿童（为儿童提供保护安全、便于就寝的设施）<p/>
                     <input type="checkbox" name="H_spefac" value="适宜老人">适宜老人（为老人提供方便进出和日常使用的设施）<p/>
                     <input type="checkbox" name="H_spefac" value="适宜残疾人">适宜残疾人（为残疾人提供无障碍通行和活动的设施）<p/>
                 </td></tr>
-                <tr><th>要求:</th><td>
+                <tr><th>要求:</th><td height="40px">
                     <input type="checkbox" name="H_require" value="允许吸烟">允许吸烟
                     <input type="checkbox" name="H_require" value="允许做饭">允许做饭
                     <input type="checkbox" name="H_require" value="允许带宠物">允许带宠物
                     <input type="checkbox" name="H_require" value="允许聚会">允许聚会
                 </td></tr>
                 <tr>
-                    <th>价格设置：</th><td><input type="text" name="H_price" placeholder="元/晚"></td>
+                    <th>价格设置：</th><td height="40px"><input type="text" name="H_price">元/晚</td>
                 </tr>
-                <tr><td><input type="submit" value="保存并继续"></td></tr>
+                <tr><td><button type="submit" class="button" style="width:max-content" >保存并继续</button></td></tr>
             </table>
         </form>
+    </div>
+</div>
+            <div class="col-md-4 column">
+            </div>
+        </div>
     </div>
 </div>
 </body>

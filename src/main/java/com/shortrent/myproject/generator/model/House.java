@@ -23,7 +23,7 @@ public class House implements Serializable {
 
     private String hBedinfo;
 
-    private Integer hSunum;
+    private String hSunum;
 
     private String hCohabitation;
 
@@ -119,11 +119,11 @@ public class House implements Serializable {
         this.hBedinfo = hBedinfo;
     }
 
-    public Integer gethSunum() {
+    public String gethSunum() {
         return hSunum;
     }
 
-    public void sethSunum(Integer hSunum) {
+    public void sethSunum(String hSunum) {
         this.hSunum = hSunum;
     }
 

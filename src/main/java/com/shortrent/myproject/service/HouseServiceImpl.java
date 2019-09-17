@@ -2,6 +2,8 @@ package com.shortrent.myproject.service;
 
 import com.shortrent.myproject.generator.dao.HouseDao;
 import com.shortrent.myproject.generator.model.House;
+import com.shortrent.myproject.generator.model.HouseExample;
+import com.shortrent.myproject.generator.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +41,14 @@ public class HouseServiceImpl implements HouseService {
     public List<House> getAll() {
         List<House> houses=houseDao.selectByExample(null);
         return null;
+    }
+
+    @Override
+    public List<House> getHouseBylocation(House house) {
+        HouseExample houseExample=new HouseExample();
+        HouseExample.Criteria criteria=houseExample.createCriteria();
+        criteria.andHDelocationEqualTo(house.gethDelocation());
+        List<House> houses=houseDao.selectByExample(houseExample);
+        return houses;
     }
 }

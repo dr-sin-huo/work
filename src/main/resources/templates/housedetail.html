@@ -1,0 +1,308 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>房屋详情页</title>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<style type="text/css">
+    .container{
+        padding-top: 60px;
+    }
+</style>
+<script>
+    function produceorder() {
+        $.ajax({
+            url:"/purerent/produceorder",
+            type:"get",
+            data:"o_applicant="+[[${session.login}]]+"&o_houseid="+[[${house.gethId()}]]+"&leavetimeyear="+[[${leavetimeyear}]]+"&leavetimemonth="+[[${leavetimemonth}]]+"&leavetimeday="+[[${leavetimeday}]],
+            dataType:"json",
+        })
+    }
+</script>
+<body>
+<style type="text/css">.navbar{background: darkorange;}</style>
+​
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="/purerent/index" style="color:white;"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
+
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li><a href="#" style="color:white;" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-user" ></span> 注册</a></li>
+
+            <li><a href="#" style="color:white;" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in" ></span> 登录</a></li>
+            <li><a href="#" style="color:white;"><span class="glyphicon glyphicon-home" ></span> 首页</a></li>
+        </ul>
+
+    </div>
+
+</nav>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h5 class="modal-title" id="myModalLabel1">
+                    欢迎注册纯粹短租网：请输入您的手机号
+                </h5>
+            </div>
+            <div class="modal-body">
+                <input id="phone" type="text" name="user_phone" placeholder="请输入手机号"/>
+                <button id="button1" type="submit" formaction="#">获取验证码</button><p/>
+                <input type="password" name="usr_password" placeholder="设置密码"><p/>
+                <input type="submit" value="立即注册">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $(function () { $('#myModal1').modal('hide')});
+</script>
+<script>
+    $(function () { $('#myModal1').on('hide.bs.modal', function () {
+        alert('确定取消注册吗？');})
+    });
+</script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    您好！ 欢迎登录纯粹短租网！
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="text" name="user_id_number" placeholder="用户名"/><p/>
+                    <input type="password" name="usr_password" placeholder="密码"/><p/>
+                    <input type="submit" value="登录"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $(function () { $('#myModal').modal('hide')});
+</script>
+<script>
+    $(function () { $('#myModal').on('hide.bs.modal', function () {
+        alert('确定取消登录吗？');})
+    });
+</script>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <!--            <nav class="navbar navbar-default" role="navigation">-->
+            <!-- <div class="navbar-header">
+                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Brand</a>
+             </div>-->
+
+            <!--   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                   <ul class="nav navbar-nav">
+                       <li class="active">
+                           <a href="#">Link</a>
+                       </li>
+                       <li>
+                           <a href="#">Link</a>
+                       </li>
+                       <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+                           <ul class="dropdown-menu">
+                               <li>
+                                   <a href="#">Action</a>
+                               </li>
+                               <li>
+                                   <a href="#">Another action</a>
+                               </li>
+                               <li>
+                                   <a href="#">Something else here</a>
+                               </li>
+                               <li class="divider">
+                               </li>
+                               <li>
+                                   <a href="#">Separated link</a>
+                               </li>
+                               <li class="divider">
+                               </li>
+                               <li>
+                                   <a href="#">One more separated link</a>
+                               </li>
+                           </ul>
+                       </li>
+                   </ul>
+                   <form class="navbar-form navbar-left" role="search">
+                       <div class="form-group">
+                           <input type="text" class="form-control" />
+                       </div> <button type="submit" class="btn btn-default">Submit</button>
+                   </form>
+                   <ul class="nav navbar-nav navbar-right">
+                       <li>
+                           <a href="#">Link</a>
+                       </li>
+                       <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+                           <ul class="dropdown-menu">
+                               <li>
+                                   <a href="#">Action</a>
+                               </li>
+                               <li>
+                                   <a href="#">Another action</a>
+                               </li>
+                               <li>
+                                   <a href="#">Something else here</a>
+                               </li>
+                               <li class="divider">
+                               </li>
+                               <li>
+                                   <a href="#">Separated link</a>
+                               </li>
+                           </ul>
+                       </li>
+                   </ul>
+               </div>-->
+
+            <!--            </nav>-->
+            <div class="row clearfix">
+                <div class="col-md-8 column">
+                    <img alt="140x140" th:src="${house.gethPicture()}" />
+
+                    <div class="panel panel-default">
+                        <div class="panel-body" th:text="${house.gethRetype()}">
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-user"></span> 个性描述</td>
+                                    <td th:text="${house.gethPedescription()}"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-edit"></span> 内部情况</td>
+                                    <td th:text="${house.gethInsituation()}"></td>
+
+                                </tr>
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-road"></span> 交通情况</td>
+                                    <td th:text="${house.gethTraffic()}"></td>
+
+                                </tr>
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-tree-conifer"></span> 周边情况</td>
+                                    <td th:text="${house.gethBeside()}"></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-signal"></span> 配套设施</td>
+                                    <td th:text="${house.gethFacilities()}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <hr/>
+                            <h3 style="color:grey;">押金及其他费用</h3>
+                            <h5>押金：#</h5><p/>
+                            <h5>加客：#</h5><p/>
+                            <h5>其他额外费用：#</h5><hr/>
+                            <h3 style="color:grey;" th:text="${house.gethRequire()}">房东对房客的要求</h3>
+                            <h5>标题：#</h5><hr/>
+                            <h3 style="color:grey;">预订方式</h3>
+                            <h4>方式：#</h4><hr/>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                入住点评
+                            </div>
+                            <div class="panel-body">
+                                此处插入房客入住点评#
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4 column">
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div th:text="${house.gethPrice()}"></div>
+                            <button type="button" data-toggle="modal" data-target="#myModal2">提交订单</button>
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            插入头像、用户名
+                            在线聊天按钮
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title">
+                    您好！ 欢迎登录纯粹短租网！
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div th:text="${session.login}"></div><p/>
+                    <div th:text="${house.gethId()}"></div><p/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="produceorder()">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+</body>
+</html>
