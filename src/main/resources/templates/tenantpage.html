@@ -12,15 +12,33 @@
         $(document).ready(function () {
 
             $("#perinfo").click(function () {
-                $.ajax({
-                    cache:false
-                });
                 $("#displaymsg").load("toperinfo");
             })
 
         })
 
 
+    </script>
+
+    <script>
+        function getorder() {
+            $.ajax({
+                url:"/purerent/getorderbyreuid",
+                type:"GET",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data);
+                    var imghtml=$("#displaymsg").innerHTML;
+                    $(data).each(function (i,values) {
+                        imghtml=imghtml+"<div class='row'><div>订单编号："+values.oId+"</div><div>房东："+values.oAcceptor+"</div><div>状态："+values.oStatus+"</div></div><a href='/purerent/toorderdetail?orderId="+values.oId+"'>查看详情</a>";
+                        $("#displaymsg").html(imghtml);
+
+                    })
+
+                }
+            })
+
+        }
     </script>
 </head>
 <!--<style type="text/css">
@@ -32,7 +50,7 @@
 <style type="text/css">.navbar{background: darkorange;}</style>
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#" style="color: white"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="/purerent/index" style="color: white"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -73,7 +91,7 @@
                             <td><a href="#" style="color:darkorange;" >分享优惠</a></td>
                         </tr>
                         <tr>
-                            <td><a href="#" style="color:darkorange;" >订单</a></td>
+                            <td><a href="#" style="color:darkorange;" onclick="getorder()">订单</a></td>
                         </tr>
                         <tr>
                             <td><a href="#" style="color:darkorange;" >常用入住人</a></td>

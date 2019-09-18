@@ -6,6 +6,8 @@ import com.shortrent.myproject.service.CommentService;
 import com.shortrent.myproject.service.HURelateService;
 import com.shortrent.myproject.service.HouseService;
 import com.shortrent.myproject.service.UserService;
+
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -131,7 +133,7 @@ public class HouseController {
         house.sethPicture(uppath);
         houseService.saveHouse(house);
         Integer hid=houseService.getHouseBylocation(house).get(0).gethId();
-        Integer phone=(Integer)request.getSession().getAttribute("login");
+        BigInteger phone=(BigInteger)request.getSession().getAttribute("login");
         User user=new User();
         user.setUserPhone(phone);
         Integer uid=userService.getUserByphone(user).get(0).getUsrId();
@@ -155,27 +157,29 @@ public class HouseController {
 
     @PostMapping("/search")
     @ResponseBody
-    public  Map<String,List<House>> search(HttpServletRequest request,Model model){
+    public  Map<String,List<House>> search(HttpServletRequest request,Model model) throws UnsupportedEncodingException {
 
+        request.setCharacterEncoding("utf-8");
         String hDelocation=request.getParameter("hDelocation");
-        String highprice=request.getParameter("highprice");
+        log.info(hDelocation);
+        String huType=request.getParameter("huType");
+        log.info(huType);
         String hRetype=request.getParameter("hRetype");
+        log.info(hRetype);
         HouseExample houseExample=new HouseExample();
         HouseExample.Criteria criteria=houseExample.createCriteria();
-        if(highprice!="0") {
-            houseExample.setOrderByClause("h_price asc");
+        if(!huType.equals("0")) {
+            criteria.andHHutypeEqualTo(huType);
+            log.info("huType");
         }
-        else {
-            houseExample.setOrderByClause("h_price desc");
+        if(!hRetype.equals("0")) {
+            criteria.andHRetypeEqualTo(hRetype);
+            log.info("huretype");
         }
         criteria.andHDelocationEqualTo(hDelocation);
-        criteria.andHRetypeEqualTo(hRetype);
-
         List<House> houses=houseDao.selectByExample(houseExample);
-        log.info(houses.get(0).gethDelocation());
         Map<String, List<House>> map=new HashMap<String,List<House>>();
         map.put("house",houses);
-
         return map;
 
     }

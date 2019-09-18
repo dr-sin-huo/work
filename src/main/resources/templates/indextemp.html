@@ -3,6 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
 <script>
+    var checkcode1;
     function onclick1() {
         var xmlhttp;
         if (window.XMLHttpRequest){
@@ -22,6 +23,42 @@
         xmlhttp.send();
     }
 
+</script>
+
+<script>
+    // 注册
+    function zhuce() {
+        var checkcode1=$("#checkcode").val();
+        $.ajax({
+            url:"/purerent/user",
+            type:"post",
+            data:"userPhone="+$("#userPhone").val()+"&usrPassword="+$("#usrPassword").val()+"&checkcode1="+checkcode1,
+            dataType:"json",
+            success:function (data) {
+                if (data=="true"){
+                    alert("成功");
+                }
+                else {
+                    alert("验证码错误");
+                }
+            }
+        })
+    }
+</script>
+
+<script>
+    // 发送短信验证码
+    function sendcheck() {
+        $.ajax({
+            url:"/purerent/send",
+            type:"get",
+            data:"demo=1&phone="+$("#userPhone").val(),
+            datatype:"json",
+            success:function (data) {
+
+            }
+        })
+    }
 </script>
 
 <script th:inline="javascript">
@@ -56,11 +93,31 @@
 
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="/layui-v2.5.5/layui/layui.css" media="all">
+    <link rel="stylesheet" href="/kuCity.css">
     <style type="text/css">
         #myCarousel  .carousel-inner > .item > img {
             display: block;
             width:100%;
             height:750px;
+        }
+    </style>
+    <style>
+        .search {
+            margin: 50px;
+            padding: 7px;
+            margin: 13px;
+            border: 1px solid rgb(207, 222, 229);
+            border-radius: 2px;
+            width: 300px;
+            height: 22px;
+        }
+        .form-group{
+            height: 50px;
+        }
+
+        .search2 {
+            margin: 100px;
         }
     </style>
 
@@ -71,7 +128,7 @@
 <div th:text="${login}" id="se" hidden></div>
 
 <style type="text/css">.navbar{background: darkorange;}</style>
-​
+?
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
     <div class="container-fluid">
@@ -151,11 +208,31 @@
     <div class="container-fluid" align="center">
         <form class="navbar-form navbar-center" role="search" method="get" action="/purerent/housesearchcontroller">
             <div>
-                <p class="navbar-text" style="color:white;" >请输入：</p>
+
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="城市或目的地" name="city">
-                <input type="text" class="form-control" placeholder="选择入住日期" name="indate">
+                <p class="navbar-text" style="color:white;" >请输入：</p>
+                <input type="text" class="search" placeholder="城市或目的地" name="city" id="city">
+                <script src="/kuCity.js"></script>
+                <script>
+                    $('.search').kuCity();
+                </script>
+                <input type="text" placeholder="选择入住日期" name="indate"  class="layui-input" id="date">
+                <script src="/kuCity.js"></script>
+              <!--  <script>
+                    $('.search').kuCity();
+                </script>-->
+                <script src="/layui-v2.5.5/layui/layui.js"></script>
+                <script>
+                    layui.use('laydate', function(){
+                        var laydate = layui.laydate;
+
+//执行一个laydate实例
+                        laydate.render({
+                            elem: '#date' //指定元素
+                        });
+                    });
+                </script>
             </div>
             <button type="submit" class="btn btn-default" style="color:darkorange;" >进入搜索</button>
         </form>
@@ -292,27 +369,28 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    模态框（Modal）标题
+                <h4 class="modal-title" id="myModalLabel" align="center">
+                    注册
                 </h4>
             </div>
-            <form action="/purerent/user" method="post">
-            <div class="modal-body">
+            <form>
+                <div class="modal-body">
 
                     <div class="text-input-dialog">
-                    <input name="userPhone" class="text-input" type="text"/>
-                        <button type="button"  id="msg" onclick="msg1()">获取验证码</button>
-                    <input name="usrPassword" type="text" class="text-input" id="remsg">
+                        <span class='glyphicon glyphicon-user'></span><input name="userPhone" id="userPhone" class="text-input" placeholder="输入手机号" type="text"/><br/>
+                        <span class='glyphicon glyphicon-user'></span><input name="usrPassword" id="usrPassword" type="text" class="text-input" placeholder="输入密码"><br/>
+                        <span class='glyphicon glyphicon-user'></span><input name="checkcode" type="text" class="text-input" id="checkcode" placeholder="验证码"><button type="button"  id="msg" onclick="sendcheck()">获取验证码</button>
+
                     </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="submit" class="btn btn-primary">
-                    注册
-                </button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="zhuce()">
+                        注册
+                    </button>
+                </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -396,7 +474,7 @@
                         Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
                     </p>
                     <p>
-                        <a class="btn" href="#">View details »</a>
+                        <a class="btn" href="#">View details ?</a>
                     </p>
                     <ul class="pagination">
                         <li>
@@ -428,7 +506,7 @@
 </div>
 
 
-​
+
 
 </body>
 

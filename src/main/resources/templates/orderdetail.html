@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情页</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">.button {
+        background-color: white;
+        color: black;
+        border: 2px solid darkorange;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color:darkorange;
+        color: white;
+    }</style>
+</head>
+<style type="text/css">
+    .container{
+        padding-top: 130px;
+    }
+    body{
+        background-image: url("/t1.jpg");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .panel{
+        border-bottom:1px solid darkorange;
+        border-top: 1px solid darkorange;
+        border-left: 1px solid darkorange;
+        border-right: 1px solid darkorange;
+        opacity: 0.7;
+    }
+</style>
+<body>
+<style type="text/css">.navbar{background: darkorange;}</style>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/purerent/index" style="color: white"><span class="glyphicon glyphicon-home"></span>纯粹短租——纯粹干净看得见！</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white">此处应获取用户名<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="landlordpage.html">房东中心</a>
+                    </li>
+                    <li>
+                        <a href="tenantpage.html">房客中心</a>
+                    </li>
+                    <li>
+                        <a href="index.html">退出登录</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <button class="button" type="submit" onclick="window.location.href='houserelease.html'" style="color: darkorange">免费发布房间</button>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+<div align="center">
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-2 column">
+            </div>
+            <div class="col-md-6 column">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table table-condensed" style="color: darkorange" align="center">
+                            <caption><h2>订单详情</h2></caption>
+                            <tbody>
+                            <tr>
+                                <th>订单编号：</th>
+                                <td height="40px" th:text="${order.getoId()}">#</td></tr>
+                            <tr>
+                                <th>订单申请人编号：</th>
+                                <td height="40px" th:text="${order.getoApplicant()}">#</td></tr>
+                            <tr>
+                                <th>订单受理人编号：</th>
+                                <td height="40px" th:text="${order.getoAcceptor()}">#</td></tr>
+                            <tr>
+                                <th>订单房屋编号：</th>
+                                <td height="40px" th:text="${order.getoHouseid()}">#</td></tr>
+                            <tr>
+                                <th>订单金额：</th>
+                                <td height="40px" th:text="${order.getoAmount()}">#</td></tr>
+                            <tr>
+                                <th>入住时间：</th>
+                                <td height="40px" th:text="${starttime}">#</td></tr>
+                            <tr>
+                                <th>入住结束时间：</th>
+                                <td height="40px" th:text="${endtime}">#</td></tr>
+                            <tr>
+                                <th>支付宝订单号：</th>
+                                <td height="40px" th:text="${order.getoPaymentnumber()}">#</td></tr>
+                            <tr><th colspan="2" style="color: darkorange" ><input type="submit" value="返回"></th> </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 column">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -2,9 +2,11 @@ package com.shortrent.myproject.controller;
 
 import com.shortrent.myproject.generator.model.Admin;
 import com.shortrent.myproject.generator.model.House;
+import com.shortrent.myproject.generator.model.Order;
 import com.shortrent.myproject.generator.model.User;
 import com.shortrent.myproject.service.HouseService;
 import com.shortrent.myproject.service.MailService;
+import com.shortrent.myproject.service.OrderService;
 import com.shortrent.myproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
@@ -17,6 +19,9 @@ import javax.annotation.Resource;
 import javax.lang.model.element.NestingKind;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 @Controller
 @Slf4j
@@ -26,11 +31,14 @@ public class TemplateController {
     @Resource
     private HouseService houseService;
 
-    @Resource (name = "userServiceImpl")
+    @Resource
     private UserService userService;
 
     @Resource
     private MailService mailService;
+
+    @Resource
+    private OrderService orderService;
 
     @GetMapping("/thymeleaf")
     public String index(Model model) {
@@ -45,6 +53,7 @@ public class TemplateController {
     @GetMapping("/index")
     public String index(Model model,HttpServletRequest request) {
         Object login=request.getSession().getAttribute("login");
+        request.getSession().setAttribute("checkcode","fdsfsaretvbcoubir");
         if(login!=null) {
             model.addAttribute("login", login.toString());
         }
@@ -55,8 +64,15 @@ public class TemplateController {
     }
 
     @GetMapping("/housesearchcontroller")
-    public String housesearch(){
-        return "housesearch";
+    public String housesearch(HttpServletRequest request,Model model) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("utf-8");
+        String city=request.getParameter("city");
+        log.info(city);
+        String indate=request.getParameter("indate");
+        log.info(indate);
+        model.addAttribute("city",city);
+        model.addAttribute("indate",indate);
+        return "housesearch1";
     }
 
     @GetMapping("/housere1")
@@ -145,14 +161,14 @@ public class TemplateController {
     @GetMapping("/tohousedetail")
     public String housedetail(Model model,HttpServletRequest request){
         String hId=request.getParameter("hId");
-        String leavetimeyear=request.getParameter("leavetimeyear");
-        String leavetimemonth=request.getParameter("leavetimemonth");
-        String leavetimeday=request.getParameter("leavetimeday");
+        String startime=request.getParameter("startime");
+        String leavetime=request.getParameter("leavetime");
         House house=houseService.getHouse(Integer.valueOf(hId));
+        log.info(startime);
+        log.info(leavetime);
         model.addAttribute("house",house);
-        model.addAttribute("leavetimeyear",leavetimeyear);
-        model.addAttribute("leavetimemonth",leavetimemonth);
-        model.addAttribute("leavetimeday",leavetimeday);
+        model.addAttribute("startime",startime);
+        model.addAttribute("leavetime",leavetime);
         return "housedetail";
     }
 
@@ -167,7 +183,70 @@ public class TemplateController {
     }
 
     @GetMapping("/toperinfo")
-    public String perinfo(){
+    public String perinfo(Model model,HttpServletRequest request){
+        String userPhone=request.getSession().getAttribute("login").toString();
+        User user1=new User();
+        BigInteger userPhone1=new BigInteger(userPhone);
+        user1.setUserPhone(userPhone1);
+        User user = userService.getUserByphone(user1).get(0);
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        String birthday=format.format(user.getUserBirthday());
+        log.info("456465445645646465456456");
+        log.info(user.getUserPhone().toString());
+        model.addAttribute("user",user);
+        model.addAttribute("birthday",birthday);
         return "perinfo";
     }
+
+    @GetMapping("/toreninfo")
+    public String reninfo(Model model,HttpServletRequest request){
+        String userPhone=request.getSession().getAttribute("login").toString();
+        User user1=new User();
+        BigInteger userPhone1=new BigInteger(userPhone);
+        user1.setUserPhone(userPhone1);
+        User user = userService.getUserByphone(user1).get(0);
+        log.info("456465445645646465456456");
+        log.info(user.getUserPhone().toString());
+        model.addAttribute("user",user);
+        return "reninfo";
+    }
+
+    @GetMapping("/toorderdetail")
+    public String orderdetail(Model model,HttpServletRequest request){
+        String orderId=request.getParameter("orderId");
+        Order order=orderService.getOrder(Integer.valueOf(orderId));
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String starttime=format.format(order.getoStarttime());
+        String endtime=format.format(order.getoEndtime());
+        model.addAttribute("order",order);
+        model.addAttribute("starttime",starttime);
+        model.addAttribute("endtime",endtime);
+        return "orderdetail";
+    }
+
+    @GetMapping("/toperinfoedit")
+    public String perinfoedit(Model model,HttpServletRequest request){
+        String userId=request.getParameter("usrId");
+        User user=userService.getUser(Integer.valueOf(userId));
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        String birthday=format.format(user.getUserBirthday());
+        log.info("edit");
+        log.info(userId);
+        log.info(user.getUserPhone().toString());
+        model.addAttribute("user",user);
+        model.addAttribute("birthday",birthday);
+        return "perinfoedit";
+    }
+
+    @GetMapping("/toreninfoedit")
+    public String reninfoedit(Model model,HttpServletRequest request){
+        String userId=request.getParameter("usrId");
+        User user=userService.getUser(Integer.valueOf(userId));
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        String birthday=format.format(user.getUserBirthday());
+        model.addAttribute("user",user);
+        model.addAttribute("birthday",birthday);
+        return "reninfoedit";
+    }
+
 }

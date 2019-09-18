@@ -1,5 +1,6 @@
 package com.shortrent.myproject.generator.model;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -222,52 +223,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneEqualTo(Integer value) {
+        public Criteria andUserPhoneEqualTo(BigInteger value) {
             addCriterion("user_phone =", value, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneNotEqualTo(Integer value) {
+        public Criteria andUserPhoneNotEqualTo(BigInteger value) {
             addCriterion("user_phone <>", value, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneGreaterThan(Integer value) {
+        public Criteria andUserPhoneGreaterThan(BigInteger value) {
             addCriterion("user_phone >", value, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserPhoneGreaterThanOrEqualTo(BigInteger value) {
             addCriterion("user_phone >=", value, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneLessThan(Integer value) {
+        public Criteria andUserPhoneLessThan(BigInteger value) {
             addCriterion("user_phone <", value, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneLessThanOrEqualTo(Integer value) {
+        public Criteria andUserPhoneLessThanOrEqualTo(BigInteger value) {
             addCriterion("user_phone <=", value, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneIn(List<Integer> values) {
+        public Criteria andUserPhoneIn(List<BigInteger> values) {
             addCriterion("user_phone in", values, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneNotIn(List<Integer> values) {
+        public Criteria andUserPhoneNotIn(List<BigInteger> values) {
             addCriterion("user_phone not in", values, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneBetween(Integer value1, Integer value2) {
+        public Criteria andUserPhoneBetween(BigInteger value1, BigInteger value2) {
             addCriterion("user_phone between", value1, value2, "userPhone");
             return (Criteria) this;
         }
 
-        public Criteria andUserPhoneNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserPhoneNotBetween(BigInteger value1, BigInteger value2) {
             addCriterion("user_phone not between", value1, value2, "userPhone");
             return (Criteria) this;
         }

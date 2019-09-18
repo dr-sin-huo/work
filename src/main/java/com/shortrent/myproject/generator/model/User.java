@@ -1,6 +1,7 @@
 package com.shortrent.myproject.generator.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
 public class User implements Serializable {
     private Integer usrId;
 
-    private Integer userPhone;
+    private BigInteger userPhone;
 
     private String usrPassword;
 
@@ -46,11 +47,11 @@ public class User implements Serializable {
         this.usrId = usrId;
     }
 
-    public Integer getUserPhone() {
+    public BigInteger getUserPhone() {
         return userPhone;
     }
 
-    public void setUserPhone(Integer userPhone) {
+    public void setUserPhone(BigInteger userPhone) {
         this.userPhone = userPhone;
     }
 

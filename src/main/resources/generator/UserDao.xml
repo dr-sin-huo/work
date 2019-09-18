@@ -3,7 +3,7 @@
 <mapper namespace="com.shortrent.myproject.generator.dao.UserDao">
   <resultMap id="BaseResultMap" type="com.shortrent.myproject.generator.model.User">
     <id column="usr_id" jdbcType="INTEGER" property="usrId" />
-    <result column="user_phone" jdbcType="INTEGER" property="userPhone" />
+    <result column="user_phone" jdbcType="BIGINT" property="userPhone" />
     <result column="usr_password" jdbcType="VARCHAR" property="usrPassword" />
     <result column="user_mail" jdbcType="VARCHAR" property="userMail" />
     <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
@@ -124,7 +124,7 @@
       user_certificate_type, user_id_number, user_education, 
       user_work, user_area, user_image, 
       user_favorites)
-    values (#{userPhone,jdbcType=INTEGER}, #{usrPassword,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, 
+    values (#{userPhone,jdbcType=BIGINT}, #{usrPassword,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR},
       #{userSex,jdbcType=VARCHAR}, #{userState,jdbcType=VARCHAR}, #{userBirthday,jdbcType=DATE}, 
       #{userCertificateType,jdbcType=VARCHAR}, #{userIdNumber,jdbcType=INTEGER}, #{userEducation,jdbcType=VARCHAR}, 
       #{userWork,jdbcType=VARCHAR}, #{userArea,jdbcType=VARCHAR}, #{userImage,jdbcType=VARCHAR}, 
@@ -175,7 +175,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userPhone != null">
-        #{userPhone,jdbcType=INTEGER},
+        #{userPhone,jdbcType=BIGINT},
       </if>
       <if test="usrPassword != null">
         #{usrPassword,jdbcType=VARCHAR},
@@ -228,7 +228,7 @@
         usr_id = #{record.usrId,jdbcType=INTEGER},
       </if>
       <if test="record.userPhone != null">
-        user_phone = #{record.userPhone,jdbcType=INTEGER},
+        user_phone = #{record.userPhone,jdbcType=BIGINT},
       </if>
       <if test="record.usrPassword != null">
         usr_password = #{record.usrPassword,jdbcType=VARCHAR},
@@ -274,7 +274,7 @@
   <update id="updateByExample" parameterType="map">
     update user
     set usr_id = #{record.usrId,jdbcType=INTEGER},
-      user_phone = #{record.userPhone,jdbcType=INTEGER},
+      user_phone = #{record.userPhone,jdbcType=BIGINT},
       usr_password = #{record.usrPassword,jdbcType=VARCHAR},
       user_mail = #{record.userMail,jdbcType=VARCHAR},
       user_sex = #{record.userSex,jdbcType=VARCHAR},
@@ -295,7 +295,7 @@
     update user
     <set>
       <if test="userPhone != null">
-        user_phone = #{userPhone,jdbcType=INTEGER},
+        user_phone = #{userPhone,jdbcType=BIGINT},
       </if>
       <if test="usrPassword != null">
         usr_password = #{usrPassword,jdbcType=VARCHAR},
@@ -338,7 +338,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.shortrent.myproject.generator.model.User">
     update user
-    set user_phone = #{userPhone,jdbcType=INTEGER},
+    set user_phone = #{userPhone,jdbcType=BIGINT},
       usr_password = #{usrPassword,jdbcType=VARCHAR},
       user_mail = #{userMail,jdbcType=VARCHAR},
       user_sex = #{userSex,jdbcType=VARCHAR},

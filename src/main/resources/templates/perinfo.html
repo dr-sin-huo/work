@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
     <title>房客中心——个人资料</title>
 <!--    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
 <!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
 <!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <style type="text/css">.button {
+        background-color: white;
+        color: darkorange;
+        border:2px solid darkorange;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color:darkorange;
+        color: white;
+    }</style>
 
 </head>
 <body>
@@ -24,10 +42,10 @@
         <form>
             <table border="0">
                 <tr>
-                    <th>手机号码：</th><td height="40px">插入手机号</td>
+                    <th>手机号码：</th><td height="40px" th:text="${user.getUserPhone()}">插入手机号</td>
                 </tr>
                 <tr>
-                    <th>邮箱地址：</th><td height="40px">插入邮箱地址</td>
+                    <th>邮箱地址：</th><td height="40px"th:text="${user.getUserMail()}">插入邮箱地址</td>
                 </tr>
 
             </table>
@@ -40,32 +58,34 @@
         <h3 class="panel-title">个人信息</h3>
     </div>
     <div class="panel-body">
-        <form>
+        <form method="get" action="/purerent/toperinfoedit">
+            <input name="usrId" th:value="${user.getUsrId()}" hidden>
             <table border="0">
                 <tr>
-                    <th>证件类型：</th><td height="40px">插入证件类型</td>
+                    <th>证件类型：</th><td height="40px" th:text="${user.getUserCertificateType()}">插入证件类型</td>
                 </tr>
                 <tr>
-                    <th>证件号：</th><td height="40px">插入证件号</td>
+                    <th>证件号：</th><td height="40px" th:text="${user.getUserIdNumber()}">插入证件号</td>
                 </tr>
                 <tr>
-                    <th>性别：</th><td height="40px">插入性别</td>
+                    <th>性别：</th><td height="40px" th:text="${user.getUserSex()}">插入性别</td>
                 </tr>
                 <tr>
-                    <th>出生日期：</th><td height="40px">插入出生日期</td>
+                    <th>出生日期：</th><td height="40px" th:text="${birthday}">插入出生日期</td>
                 </tr>
                 <tr>
-                    <th>学历：</th><td height="40px">插入学历</td>
+                    <th>学历：</th><td height="40px" th:text="${user.getUserEducation()}">插入学历</td>
                 </tr>
                 <tr>
-                    <th>职业：</th><td height="40px">插入职业</td>
+                    <th>职业：</th><td height="40px" th:text="${user.getUserWork()}">插入职业</td>
                 </tr>
                 <tr>
-                    <th>地址：</th><td height="40px">插入地址</td>
+                    <th>地址：</th><td height="40px" th:text="${user.getUserArea()}">插入地址</td>
                 </tr>
                 <tr>
-                    <th>个人爱好：</th><td height="40px">插入个人爱好</td>
+                    <th>个人爱好：</th><td height="40px" th:text="${user.getUserFavorites()}">插入个人爱好</td>
                 </tr>
+                <tr><th colspan="2"><button type="submit" class="button" style="width: max-content">编辑</button></th> </tr>
             </table>
         </form>
     </div>
